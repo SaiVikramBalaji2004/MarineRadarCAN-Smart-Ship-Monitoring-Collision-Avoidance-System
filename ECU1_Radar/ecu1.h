@@ -5,9 +5,9 @@
 #include <LPC21xx.h>
 
 typedef struct {
-    unsigned long id;        /* 11-bit CAN identifier               */
-    unsigned char dlc;       /* data length code (0..8)             */
-    unsigned char data[8];   /* payload                             */
+    unsigned long id;        // 11-bit CAN identifier               
+    unsigned char dlc;       // data length code (0..8)             
+    unsigned char data[8];   // payload                             
 } CAN_Message_t;
 
 #define CAN_ID_OBJ_ANGLE    0x101

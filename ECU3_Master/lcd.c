@@ -1,37 +1,30 @@
-/*
- * ---------------------------------------------------------------------------
- *  ECU-3 20x4 character LCD driver (HD44780), 4-bit mode
- *  Data/control lines on Port 0 : RS=P0.16, EN=P0.17, D4..D7=P0.18..P0.21
- *  RW is tied to ground, so the LCD is write-only from the MCU side.
- *  Row start addresses : row1=0x80, row2=0xC0, row3=0x94, row4=0xD4
- * ---------------------------------------------------------------------------
- */
+
 #include "ecu3.h"
 
 /* ---------- low level nibble / byte transfers ---------- */
 
 static void LCD_Nibble(unsigned char nibble)
 {
-    IOCLR0 = LCD_DATA_MASK;       /* clear the four data lines            */
+    IOCLR0 = LCD_DATA_MASK;       //clear the four data lines           
     if (nibble & 0x01) IOSET0 = LCD_D4;
     if (nibble & 0x02) IOSET0 = LCD_D5;
     if (nibble & 0x04) IOSET0 = LCD_D6;
     if (nibble & 0x08) IOSET0 = LCD_D7;
 
-    IOSET0 = LCD_EN;              /* E high                               */
+    IOSET0 = LCD_EN;              // E high                               
     DelayUs(2);
-    IOCLR0 = LCD_EN;              /* E low  -> data latched               */
+    IOCLR0 = LCD_EN;              // E low  -> data latched               
 }
 
 static void LCD_Byte(unsigned char rs, unsigned char value)
 {
     if (rs)
-        IOSET0 = LCD_RS;          /* RS = 1 : data register               */
+        IOSET0 = LCD_RS;          // RS = 1 : data register               
     else
-        IOCLR0 = LCD_RS;          /* RS = 0 : command register            */
+        IOCLR0 = LCD_RS;          // RS = 0 : command register            
 
-    LCD_Nibble((unsigned char)(value >> 4));   /* high nibble first       */
-    LCD_Nibble((unsigned char)(value & 0x0F)); /* then low nibble         */
+    LCD_Nibble((unsigned char)(value >> 4));   // high nibble first       
+    LCD_Nibble((unsigned char)(value & 0x0F)); // then low nibble         
     DelayUs(50);
 }
 
@@ -62,13 +55,13 @@ void LCD_Init(void)
     DelayMs(2);
     LCD_Nibble(0x03);
     DelayMs(2);
-    LCD_Nibble(0x02);             /* function set : interface = 4-bit     */
+    LCD_Nibble(0x02);             // function set : interface = 4-bit     
     DelayMs(2);
 
-    LCD_Cmd(0x28);                /* 4-bit, 2 lines, 5x8 dots             */
-    LCD_Cmd(0x0C);                /* display ON, cursor OFF, no blink     */
-    LCD_Cmd(0x06);                /* increment address, no display shift  */
-    LCD_Cmd(0x01);                /* clear display                        */
+    LCD_Cmd(0x28);                // 4-bit, 2 lines, 5x8 dots             
+    LCD_Cmd(0x0C);                // display ON, cursor OFF, no blink     
+    LCD_Cmd(0x06);                // increment address, no display shift  
+    LCD_Cmd(0x01);                // clear display                        
     DelayMs(2);
 }
 

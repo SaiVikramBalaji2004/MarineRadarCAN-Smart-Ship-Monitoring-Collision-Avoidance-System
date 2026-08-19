@@ -5,19 +5,18 @@ void CAN_Init(void)
 {
     PINSEL1 |= 0x00040000;
 
-    C1MOD = 0x01;                 /* enter reset mode                     */
-    C1BTR = CAN_BTR_500K;         /* bit timing for 500 kbps              */
-    C1MOD = 0x00;                 /* request to leave reset mode          */
-    while (C1MOD & 0x01);         /* wait until controller leaves reset   */
+    C1MOD = 0x01;                 // enter reset mode                     
+    C1BTR = CAN_BTR_500K;         // bit timing for 500 kbps              
+    C1MOD = 0x00;                 // request to leave reset mode          
+    while (C1MOD & 0x01);         // wait until controller leaves reset   
 }
 
 void CAN_SendMessage(CAN_Message_t *msg)
 {
-    while (!(C1GSR & 0x04)) ;     /* wait for a free transmit buffer      */
-
-    C1CMR  = 0x20;                /* select Tx buffer 1                   */
-    C1TFI1 = ((unsigned long)(msg->dlc)) << 16;   /* standard data frame  */
-    C1TID1 = msg->id;             /* 11-bit identifier                    */
+    while (!(C1GSR & 0x04)) ;     // wait for a free transmit buffer      
+    C1CMR  = 0x20;                // select Tx buffer 1                   
+    C1TFI1 = ((unsigned long)(msg->dlc)) << 16;   // standard data frame  
+    C1TID1 = msg->id;             // 11-bit identifier                    
 
     C1TDA1 = (unsigned long)msg->data[0]
            | ((unsigned long)msg->data[1] << 8)

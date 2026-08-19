@@ -5,8 +5,6 @@ static CAN_Message_t msg;
 static void SendRadarFrame(unsigned char angle, unsigned int distance)
 {
     unsigned char obstacle;
-
-    /* Strict binary safety rule : any valid echo -> DANGER */
     obstacle = (distance > 0) ? COLLISION_DANGER : COLLISION_SAFE;
 
     msg.id  = CAN_ID_OBJ_ANGLE;
@@ -37,8 +35,7 @@ int main(void)
         for (angle = 0; angle <= 180; angle += 10)
         {
             Servo_SetAngle(angle);
-            DelayMs(150);                     /* let the servo settle     */
-
+            DelayMs(150);                
             distance = HC_SR04_ReadDistance();
             SendRadarFrame(angle, distance);
             DelayMs(100);

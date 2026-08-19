@@ -18,16 +18,16 @@ typedef struct {
 #define COLLISION_DANGER    0xFF
 
 
-#define TRIG_PIN    (1UL << 8)    /* P0.8  : Trigger (GPIO output)   */
-#define ECHO_PIN    (1UL << 16)   /* P0.16 : Echo (CAP0.2 capture)   */
-#define ECHO_PINSEL 0x03UL        /* PINSEL1[1:0] = 11 -> CAP0.2     */
-#define SENSOR_MAX_CM   400UL     /* HC-SR04 reliable max range      */
-#define SENSOR_MIN_CM   2UL       /* HC-SR04 blind zone              */
+#define TRIG_PIN    (1UL << 8)    // P0.8  : Trigger (GPIO output)   
+#define ECHO_PIN    (1UL << 16)   // P0.16 : Echo (CAP0.2 capture)   
+#define ECHO_PINSEL 0x03UL        // PINSEL1[1:0] = 11 -> CAP0.2     
+#define SENSOR_MAX_CM   400UL     // HC-SR04 reliable max range      
+#define SENSOR_MIN_CM   2UL       // HC-SR04 blind zone              
 
 
-#define SERVO_0DEG_US    1000UL   /* 1 ms  -> 0 deg                  */
-#define SERVO_180DEG_US  2000UL   /* 2 ms  -> 180 deg                */
-#define SERVO_PERIOD_US  20000UL  /* 20 ms -> 50 Hz frame rate       */
+#define SERVO_0DEG_US    1000UL   // 1 ms  -> 0 deg                  
+#define SERVO_180DEG_US  2000UL   // 2 ms  -> 180 deg                
+#define SERVO_PERIOD_US  20000UL  // 20 ms -> 50 Hz frame rate       
 
 #define CAN_BTR_500K     0x00480000UL
 
@@ -38,7 +38,7 @@ void Servo_Init(void);
 void Servo_SetAngle(unsigned char angle);
 
 void HC_SR04_Init(void);
-unsigned int HC_SR04_ReadDistance(void);   /* cm, 0 = no valid echo */
+unsigned int HC_SR04_ReadDistance(void);   // cm, 0 = no valid echo 
 
 void DelayMs(unsigned int ms);
 void DelayUs(unsigned int us);

@@ -167,6 +167,3 @@ Marine Radar 2.0/
     └── ECU_receive.uvproj       # Keil project file
 ```
 
-## License
-
-This project is for educational purposes.

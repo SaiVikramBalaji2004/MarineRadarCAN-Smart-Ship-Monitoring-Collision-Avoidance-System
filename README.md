@@ -1,4 +1,4 @@
-# Marine Radar 2.0
+# Marine Radar 
 
 An embedded system project implementing a marine radar/safety monitoring system using multiple ECUs (Electronic Control Units) communicating over CAN bus on LPC21xx ARM7 microcontrollers.
 
